@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Заявка на подбор · Юг · Kari</title>
+  <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Geologica", -apple-system, sans-serif; background: linear-gradient(135deg, #fff0f7 0%, #f4f5f7 60%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; color: #111827; }
+    .card { background: #ffffff; border-radius: 18px; padding: 28px; max-width: 500px; width: 100%; box-shadow: 0 8px 40px rgba(196,0,106,0.10), 0 2px 8px rgba(0,0,0,0.06); }
+    .header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid #f3e6ef; }
+    .logo-wrap { background: linear-gradient(135deg, #C4006A, #94004f); border-radius: 12px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .header-text h1 { font-size: 16px; font-weight: 700; color: #111827; line-height: 1.2; }
+    .region-badge { display: inline-block; margin-top: 4px; background: #fff0f7; color: #C4006A; font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 20px; border: 1px solid #f9a8d4; }
+    .director-name { margin-top: 5px; font-size: 12px; color: #C4006A; font-weight: 600; }
+    .field { margin-bottom: 16px; }
+    .field label { display: block; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    select, input[type="text"], input[type="date"] { width: 100%; padding: 10px 12px; border: 1.5px solid #e5e7eb; border-radius: 9px; font-size: 13px; font-family: "Geologica", sans-serif; color: #111827; background: #fafafa; outline: none; transition: border-color 0.15s, box-shadow 0.15s; }
+    select:focus, input:focus { border-color: #C4006A; box-shadow: 0 0 0 3px rgba(196,0,106,0.10); background: #fff; }
+    .vac-item { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+    .vac-item select { flex: 1; }
+    .vac-item input[type="number"] { width: 64px; flex-shrink: 0; text-align: center; }
+    .vac-item .unit { font-size: 12px; color: #6b7280; flex-shrink: 0; white-space: nowrap; }
+    .vac-item .del-btn { background: none; border: none; color: #d1d5db; cursor: pointer; font-size: 16px; flex-shrink: 0; padding: 2px 4px; border-radius: 4px; transition: color 0.12s; }
+    .vac-item .del-btn:hover { color: #C4006A; }
+    .add-btn { background: none; border: 1.5px dashed #e5e7eb; border-radius: 8px; color: #9ca3af; font-size: 12px; font-family: "Geologica", sans-serif; padding: 8px 14px; cursor: pointer; width: 100%; margin-top: 4px; transition: all 0.15s; }
+    .add-btn:hover { border-color: #C4006A; color: #C4006A; background: #fff0f7; }
+    .submit-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, #C4006A, #94004f); color: white; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; font-family: "Geologica", sans-serif; cursor: pointer; margin-top: 8px; transition: all 0.15s; }
+    .submit-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(196,0,106,0.3); }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+    .divider { border: none; border-top: 1px solid #f3e6ef; margin: 16px 0 12px; }
+    .close-section-label { font-size: 11px; color: #9ca3af; text-align: center; margin-bottom: 10px; }
+    .close-btn { width: 100%; padding: 13px; background: #f0fdf4; color: #15803d; border: 1.5px solid #bbf7d0; border-radius: 10px; font-size: 14px; font-weight: 600; font-family: "Geologica", sans-serif; cursor: pointer; transition: all 0.15s; }
+    .close-btn:hover { background: #dcfce7; border-color: #86efac; }
+    .close-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .result-box { display: none; margin-top: 14px; padding: 14px 16px; border-radius: 10px; font-size: 13px; text-align: center; line-height: 1.5; }
+    .result-box.success { background: #f0fdf4; color: #15803d; border: 1.5px solid #86efac; }
+    .result-box.closed { background: #f3f4f6; color: #6b7280; border: 1.5px solid #e5e7eb; }
+    .footer { margin-top: 20px; text-align: center; font-size: 10px; color: #d1d5db; }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="header">
+    <div class="logo-wrap">
+      <svg viewBox="0 0 100 115" xmlns="http://www.w3.org/2000/svg" width="28" height="32">
+        <path d="M50 4 C27 4 8 23 8 46 C8 67 28 85 50 110 C72 85 92 67 92 46 C92 23 73 4 50 4Z" fill="rgba(255,255,255,0.2)"/>
+        <circle cx="50" cy="44" r="20" fill="white"/>
+        <path d="M38 36 C38 36 45 33 52 38 C57 42 55 52 48 52 C43 52 40 48 42 44 C44 41 49 42 49 46" fill="none" stroke="#C4006A" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="header-text">
+      <h1>Заявка на подбор сотрудника</h1>
+      <span class="region-badge">📍 Регион: Юг</span>
+      <div class="director-name">👤 Юлдашев Азизбек Хусанович</div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Магазин</label>
+    <select id="store"><option value="ТРЦ Hyper House">45021 · ТРЦ Hyper House</option>
+<option value="ТЦ Баян-Сұлу">40014 · ТЦ Баян-Сұлу</option>
+<option value="ТД Колос">40100 · ТД Колос</option>
+<option value="ТРК Бекжан">40113 · ТРК Бекжан</option>
+<option value="ТЦ Север">40114 · ТЦ Север</option>
+<option value="ТЦ Фиркан City">40131 · ТЦ Фиркан City</option>
+<option value="ТД Lakomka">40155 · ТД Lakomka</option>
+<option value="ТРК Diamond Plaza">40158 · ТРК Diamond Plaza</option>
+<option value="ТРЦ Shymkent City Mall">40162 · ТРЦ Shymkent City Mall</option>
+<option value="ТД Баян-Сұлу">40068 · ТД Баян-Сұлу</option>
+<option value="ТЦ Mart Magnat">40096 · ТЦ Mart Magnat</option>
+<option value="ТРЦ Час">40006 · ТРЦ Час</option>
+<option value="ТРЦ Aray City Mall">40099 · ТРЦ Aray City Mall</option>
+<option value="ТРЦ Khanshaiym Plaza">40128 · ТРЦ Khanshaiym Plaza</option></select>
+  </div>
+  <div class="field">
+    <label>Дата заявки</label>
+    <input type="date" id="date">
+  </div>
+  <div class="field">
+    <label>Вакансии</label>
+    <div id="vacItems">
+      <div class="vac-item">
+        <select><option value="Продавец-консультант">Продавец-консультант</option>
+<option value="Кассир">Кассир</option>
+<option value="Продавец-консультант ювелирных изделий">Продавец-консультант ювелирных изделий</option>
+<option value="Администратор магазина">Администратор магазина</option>
+<option value="Директор магазина">Директор магазина</option></select>
+        <input type="number" value="1" min="1" max="20">
+        <span class="unit">чел.</span>
+      </div>
+    </div>
+    <button class="add-btn" onclick="addVac()">+ Добавить ещё вакансию</button>
+  </div>
+  <div class="field">
+    <label>Комментарий <span style="text-transform:none;font-weight:400;color:#9ca3af">(необязательно)</span></label>
+    <input type="text" id="comment" placeholder="Особые требования, пожелания...">
+  </div>
+  <button class="submit-btn" id="submitBtn" onclick="submitForm()">Отправить заявку →</button>
+
+  <hr class="divider">
+  <div class="close-section-label">Если вакансия уже закрыта — уведомите HR</div>
+  <div class="field">
+    <label>Магазин для закрытия</label>
+    <select id="closeStore"><option value="">— выберите магазин —</option><option value="ТРЦ Hyper House">45021 · ТРЦ Hyper House</option>
+<option value="ТЦ Баян-Сұлу">40014 · ТЦ Баян-Сұлу</option>
+<option value="ТД Колос">40100 · ТД Колос</option>
+<option value="ТРК Бекжан">40113 · ТРК Бекжан</option>
+<option value="ТЦ Север">40114 · ТЦ Север</option>
+<option value="ТЦ Фиркан City">40131 · ТЦ Фиркан City</option>
+<option value="ТД Lakomka">40155 · ТД Lakomka</option>
+<option value="ТРК Diamond Plaza">40158 · ТРК Diamond Plaza</option>
+<option value="ТРЦ Shymkent City Mall">40162 · ТРЦ Shymkent City Mall</option>
+<option value="ТД Баян-Сұлу">40068 · ТД Баян-Сұлу</option>
+<option value="ТЦ Mart Magnat">40096 · ТЦ Mart Magnat</option>
+<option value="ТРЦ Час">40006 · ТРЦ Час</option>
+<option value="ТРЦ Aray City Mall">40099 · ТРЦ Aray City Mall</option>
+<option value="ТРЦ Khanshaiym Plaza">40128 · ТРЦ Khanshaiym Plaza</option></select>
+  </div>
+  <div class="field">
+    <label>Должность для закрытия</label>
+    <select id="closeVac"><option value="">— выберите должность —</option><option value="Продавец-консультант">Продавец-консультант</option>
+<option value="Кассир">Кассир</option>
+<option value="Продавец-консультант ювелирных изделий">Продавец-консультант ювелирных изделий</option>
+<option value="Администратор магазина">Администратор магазина</option>
+<option value="Директор магазина">Директор магазина</option></select>
+  </div>
+  <button class="close-btn" id="closeBtn" onclick="closeVacancy()">🔒 Закрыть вакансию</button>
+
+  <div class="result-box" id="result"></div>
+  <div class="footer">Kari HR · Форма для директоров · Регион Юг · Юлдашев Азизбек Хусанович</div>
+</div>
+<script>
+  const TG_TOKEN = '8630255396:AAGZPp6e32PurKslNirR4LbcUOsvw5UrkZk';
+  const TG_CHAT_ID = '901238130';
+  const REGION = 'Юг';
+  const VAC_OPTS = ["Продавец-консультант", "Кассир", "Продавец-консультант ювелирных изделий", "Администратор магазина", "Директор магазина"];
+  const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
+  document.getElementById('date').value = tomorrow.toISOString().split('T')[0];
+
+  function addVac() {
+    const wrap = document.getElementById('vacItems');
+    const div = document.createElement('div'); div.className = 'vac-item';
+    div.innerHTML = '<select>' + VAC_OPTS.map(v => '<option value="'+v+'">'+v+'</option>').join('') + '</select><input type="number" value="1" min="1" max="20"><span class="unit">чел.</span><button class="del-btn" onclick="this.parentNode.remove()">✕</button>';
+    wrap.appendChild(div);
+  }
+
+  async function submitForm() {
+    const store = document.getElementById('store').value;
+    const date = document.getElementById('date').value;
+    const comment = document.getElementById('comment').value || '';
+    const btn = document.getElementById('submitBtn');
+    const result = document.getElementById('result');
+    if (!date) { alert('Укажи дату'); return; }
+    const items = Array.from(document.querySelectorAll('#vacItems .vac-item')).map(row => {
+      const sel = row.querySelector('select'); const inp = row.querySelector('input[type="number"]');
+      return { vacancy: sel?.value || '', count: parseInt(inp?.value||1) };
+    }).filter(it => it.vacancy);
+    btn.disabled = true; btn.textContent = 'Отправляю...';
+    const zayavka = { __kari_zayavka: true, id: Date.now().toString(), region: REGION, store, date, comment, items, status: 'open', createdAt: new Date().toISOString() };
+    try { await fetch('https://api.telegram.org/bot'+TG_TOKEN+'/sendMessage', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ chat_id: TG_CHAT_ID, text: JSON.stringify(zayavka) }) }); } catch(e) {}
+    const itemsText = items.map(it => '• '+it.vacancy+' — '+it.count+' чел.').join('\\n');
+    const dateStr = new Date(date).toLocaleDateString('ru-RU',{day:'numeric',month:'long'});
+    const notifText = '📝 Новая заявка!\\n\\n🏬 '+store+'\\n📍 Регион: '+REGION+'\\n📅 Нужен к: '+dateStr+'\\n\\n'+itemsText+(comment?'\\n\\n💬 '+comment:'');
+    try { await fetch('https://api.telegram.org/bot'+TG_TOKEN+'/sendMessage', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ chat_id: TG_CHAT_ID, text: notifText }) }); } catch(e) {}
+    result.className = 'result-box success'; result.style.display = 'block';
+    result.innerHTML = '✅ Заявка отправлена!<br><span style="font-size:12px;opacity:0.8">HR-отдел получил уведомление и возьмёт в работу.</span>';
+    btn.textContent = '✓ Отправлено';
+  }
+
+  async function closeVacancy() {
+    const store = document.getElementById('closeStore').value || document.getElementById('store').value;
+    const vacancy = document.getElementById('closeVac').value;
+    const btn = document.getElementById('closeBtn');
+    const result = document.getElementById('result');
+    if (!store) { alert('Выберите магазин'); return; }
+    if (!vacancy) { alert('Выберите должность для закрытия'); return; }
+    btn.disabled = true; btn.textContent = 'Отправляю...';
+    const text = '🔒 Вакансия закрыта!\\n\\n🏬 '+store+'\\n📍 Регион: '+REGION+'\\n💼 Должность: '+vacancy;
+    try { await fetch('https://api.telegram.org/bot'+TG_TOKEN+'/sendMessage', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ chat_id: TG_CHAT_ID, text }) }); } catch(e) {}
+    result.className = 'result-box closed'; result.style.display = 'block';
+    result.innerHTML = '🔒 Вакансия закрыта. HR-отдел уведомлён.<br><span style="font-size:11px;opacity:0.8">'+store+' · '+vacancy+'</span>';
+    btn.textContent = '✓ HR уведомлён';
+  }
+<\/script>
+</body>
+</html>`;
