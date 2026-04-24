@@ -53,23 +53,23 @@
     <div class="header-text">
       <h1>Заявка на подбор сотрудника</h1>
       <span class="region-badge">📍 Регион: Алматы 2</span>
-      <div class="director-name">👤 Алдаш Маржан Әбілсейітқызы</div>
+      ${director ? `<div class="director-name">👤 Алдаш Маржан Әбілсейітқызы</div>` : ''}
     </div>
   </div>
 
   <div class="field">
     <label>Магазин</label>
-    <select id="store"><option value="ТРЦ Asia Park">ТРЦ Asia Park</option>
-<option value="на Арбат">на Арбат</option>
-<option value="ТРЦ MAXIMA">ТРЦ MAXIMA</option>
-<option value="ТРЦ Atakent Mall">ТРЦ Atakent Mall</option>
-<option value="ТРЦ Aport Mall East">ТРЦ Aport Mall East</option>
-<option value="ТД Султан">ТД Султан</option>
-<option value="ТЦ City Plaza">ТЦ City Plaza</option>
-<option value="ТД Алатау">ТД Алатау</option>
-<option value="ТД Акбота">ТД Акбота</option>
-<option value="ТД Виктория">ТД Виктория</option>
-<option value="ТРЦ Sputnik Mall">ТРЦ Sputnik Mall</option></select>
+    <select id="store"><option value="ТРЦ Asia Park">40167 · ТРЦ Asia Park</option>
+<option value="на Арбат">40073 · на Арбат</option>
+<option value="ТРЦ MAXIMA">40089 · ТРЦ MAXIMA</option>
+<option value="ТРЦ Atakent Mall">40091 · ТРЦ Atakent Mall</option>
+<option value="ТРЦ Aport Mall East">40119 · ТРЦ Aport Mall East</option>
+<option value="ТД Султан">40163 · ТД Султан</option>
+<option value="ТЦ City Plaza">40174 · ТЦ City Plaza</option>
+<option value="ТД Алатау">40057 · ТД Алатау</option>
+<option value="ТД Акбота">40141 · ТД Акбота</option>
+<option value="ТД Виктория">40038 · ТД Виктория</option>
+<option value="ТРЦ Sputnik Mall">45022 · ТРЦ Sputnik Mall</option></select>
   </div>
   <div class="field">
     <label>Дата заявки</label>
@@ -100,17 +100,17 @@
   <div class="close-section-label">Если вакансия уже закрыта — уведомите HR</div>
   <div class="field">
     <label>Магазин для закрытия</label>
-    <select id="closeStore"><option value="">— выберите магазин —</option><option value="ТРЦ Asia Park">ТРЦ Asia Park</option>
-<option value="на Арбат">на Арбат</option>
-<option value="ТРЦ MAXIMA">ТРЦ MAXIMA</option>
-<option value="ТРЦ Atakent Mall">ТРЦ Atakent Mall</option>
-<option value="ТРЦ Aport Mall East">ТРЦ Aport Mall East</option>
-<option value="ТД Султан">ТД Султан</option>
-<option value="ТЦ City Plaza">ТЦ City Plaza</option>
-<option value="ТД Алатау">ТД Алатау</option>
-<option value="ТД Акбота">ТД Акбота</option>
-<option value="ТД Виктория">ТД Виктория</option>
-<option value="ТРЦ Sputnik Mall">ТРЦ Sputnik Mall</option></select>
+    <select id="closeStore"><option value="">— выберите магазин —</option><option value="ТРЦ Asia Park">40167 · ТРЦ Asia Park</option>
+<option value="на Арбат">40073 · на Арбат</option>
+<option value="ТРЦ MAXIMA">40089 · ТРЦ MAXIMA</option>
+<option value="ТРЦ Atakent Mall">40091 · ТРЦ Atakent Mall</option>
+<option value="ТРЦ Aport Mall East">40119 · ТРЦ Aport Mall East</option>
+<option value="ТД Султан">40163 · ТД Султан</option>
+<option value="ТЦ City Plaza">40174 · ТЦ City Plaza</option>
+<option value="ТД Алатау">40057 · ТД Алатау</option>
+<option value="ТД Акбота">40141 · ТД Акбота</option>
+<option value="ТД Виктория">40038 · ТД Виктория</option>
+<option value="ТРЦ Sputnik Mall">45022 · ТРЦ Sputnik Mall</option></select>
   </div>
   <div class="field">
     <label>Должность для закрытия</label>
@@ -123,13 +123,13 @@
   <button class="close-btn" id="closeBtn" onclick="closeVacancy()">🔒 Закрыть вакансию</button>
 
   <div class="result-box" id="result"></div>
-  <div class="footer">Kari HR · Форма для директоров · Регион Алматы 2 · Алдаш Маржан Әбілсейітқызы</div>
+  <div class="footer">Kari HR · Форма для директоров · Регион Алматы 2${director ? ' · ' + director : ''}</div>
 </div>
 <script>
   const TG_TOKEN = '8630255396:AAGZPp6e32PurKslNirR4LbcUOsvw5UrkZk';
   const TG_CHAT_ID = '901238130';
   const REGION = 'Алматы 2';
-  const VAC_OPTS = ["Продавец-консультант","Кассир","Продавец-консультант ювелирных изделий","Администратор магазина","Директор магазина"];
+  const VAC_OPTS = ["Продавец-консультант", "Кассир", "Продавец-консультант ювелирных изделий", "Администратор магазина", "Директор магазина"];
   const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
   document.getElementById('date').value = tomorrow.toISOString().split('T')[0];
 
@@ -154,9 +154,9 @@
     btn.disabled = true; btn.textContent = 'Отправляю...';
     const zayavka = { __kari_zayavka: true, id: Date.now().toString(), region: REGION, store, date, comment, items, status: 'open', createdAt: new Date().toISOString() };
     try { await fetch('https://api.telegram.org/bot'+TG_TOKEN+'/sendMessage', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ chat_id: TG_CHAT_ID, text: JSON.stringify(zayavka) }) }); } catch(e) {}
-    const itemsText = items.map(it => '• '+it.vacancy+' — '+it.count+' чел.').join('\n');
+    const itemsText = items.map(it => '• '+it.vacancy+' — '+it.count+' чел.').join('\\n');
     const dateStr = new Date(date).toLocaleDateString('ru-RU',{day:'numeric',month:'long'});
-    const notifText = '📝 Новая заявка!\n\n🏬 '+store+'\n📍 Регион: '+REGION+'\n📅 Нужен к: '+dateStr+'\n\n'+itemsText+(comment?'\n\n💬 '+comment:'');
+    const notifText = '📝 Новая заявка!\\n\\n🏬 '+store+'\\n📍 Регион: '+REGION+'\\n📅 Нужен к: '+dateStr+'\\n\\n'+itemsText+(comment?'\\n\\n💬 '+comment:'');
     try { await fetch('https://api.telegram.org/bot'+TG_TOKEN+'/sendMessage', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ chat_id: TG_CHAT_ID, text: notifText }) }); } catch(e) {}
     result.className = 'result-box success'; result.style.display = 'block';
     result.innerHTML = '✅ Заявка отправлена!<br><span style="font-size:12px;opacity:0.8">HR-отдел получил уведомление и возьмёт в работу.</span>';
@@ -171,12 +171,12 @@
     if (!store) { alert('Выберите магазин'); return; }
     if (!vacancy) { alert('Выберите должность для закрытия'); return; }
     btn.disabled = true; btn.textContent = 'Отправляю...';
-    const text = '🔒 Вакансия закрыта!\n\n🏬 '+store+'\n📍 Регион: '+REGION+'\n💼 Должность: '+vacancy;
+    const text = '🔒 Вакансия закрыта!\\n\\n🏬 '+store+'\\n📍 Регион: '+REGION+'\\n💼 Должность: '+vacancy;
     try { await fetch('https://api.telegram.org/bot'+TG_TOKEN+'/sendMessage', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ chat_id: TG_CHAT_ID, text }) }); } catch(e) {}
     result.className = 'result-box closed'; result.style.display = 'block';
     result.innerHTML = '🔒 Вакансия закрыта. HR-отдел уведомлён.<br><span style="font-size:11px;opacity:0.8">'+store+' · '+vacancy+'</span>';
     btn.textContent = '✓ HR уведомлён';
   }
-</script>
+<\/script>
 </body>
-</html>
+</html>`;

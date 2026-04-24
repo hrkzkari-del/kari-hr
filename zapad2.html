@@ -53,21 +53,21 @@
     <div class="header-text">
       <h1>Заявка на подбор сотрудника</h1>
       <span class="region-badge">📍 Регион: Запад 2</span>
-      <div class="director-name">👤 Шуманова Яна Евгеньевна</div>
+      ${director ? `<div class="director-name">👤 Шуманова Яна Евгеньевна</div>` : ''}
     </div>
   </div>
 
   <div class="field">
     <label>Магазин</label>
-    <select id="store"><option value="ТЦ Лимон">ТЦ Лимон</option>
-<option value="ТД Насиха">ТД Насиха</option>
-<option value="ТД Асем Ай">ТД Асем Ай</option>
-<option value="ТРК Атырау">ТРК Атырау</option>
-<option value="ТЦ Сункар">ТЦ Сункар</option>
-<option value="УТК Заман">УТК Заман</option>
-<option value="ТРК Актау">ТРК Актау</option>
-<option value="ТЦ Shum">ТЦ Shum</option>
-<option value="ТРК Жанаозен">ТРК Жанаозен</option></select>
+    <select id="store"><option value="ТЦ Лимон">40067 · ТЦ Лимон</option>
+<option value="ТД Насиха">40153 · ТД Насиха</option>
+<option value="ТД Асем Ай">40164 · ТД Асем Ай</option>
+<option value="ТРК Атырау">40166 · ТРК Атырау</option>
+<option value="ТЦ Сункар">40050 · ТЦ Сункар</option>
+<option value="УТК Заман">40107 · УТК Заман</option>
+<option value="ТРК Актау">40121 · ТРК Актау</option>
+<option value="ТЦ Shum">40133 · ТЦ Shum</option>
+<option value="ТРК Жанаозен">40154 · ТРК Жанаозен</option></select>
   </div>
   <div class="field">
     <label>Дата заявки</label>
@@ -98,15 +98,15 @@
   <div class="close-section-label">Если вакансия уже закрыта — уведомите HR</div>
   <div class="field">
     <label>Магазин для закрытия</label>
-    <select id="closeStore"><option value="">— выберите магазин —</option><option value="ТЦ Лимон">ТЦ Лимон</option>
-<option value="ТД Насиха">ТД Насиха</option>
-<option value="ТД Асем Ай">ТД Асем Ай</option>
-<option value="ТРК Атырау">ТРК Атырау</option>
-<option value="ТЦ Сункар">ТЦ Сункар</option>
-<option value="УТК Заман">УТК Заман</option>
-<option value="ТРК Актау">ТРК Актау</option>
-<option value="ТЦ Shum">ТЦ Shum</option>
-<option value="ТРК Жанаозен">ТРК Жанаозен</option></select>
+    <select id="closeStore"><option value="">— выберите магазин —</option><option value="ТЦ Лимон">40067 · ТЦ Лимон</option>
+<option value="ТД Насиха">40153 · ТД Насиха</option>
+<option value="ТД Асем Ай">40164 · ТД Асем Ай</option>
+<option value="ТРК Атырау">40166 · ТРК Атырау</option>
+<option value="ТЦ Сункар">40050 · ТЦ Сункар</option>
+<option value="УТК Заман">40107 · УТК Заман</option>
+<option value="ТРК Актау">40121 · ТРК Актау</option>
+<option value="ТЦ Shum">40133 · ТЦ Shum</option>
+<option value="ТРК Жанаозен">40154 · ТРК Жанаозен</option></select>
   </div>
   <div class="field">
     <label>Должность для закрытия</label>
@@ -119,13 +119,13 @@
   <button class="close-btn" id="closeBtn" onclick="closeVacancy()">🔒 Закрыть вакансию</button>
 
   <div class="result-box" id="result"></div>
-  <div class="footer">Kari HR · Форма для директоров · Регион Запад 2 · Шуманова Яна Евгеньевна</div>
+  <div class="footer">Kari HR · Форма для директоров · Регион Запад 2${director ? ' · ' + director : ''}</div>
 </div>
 <script>
   const TG_TOKEN = '8630255396:AAGZPp6e32PurKslNirR4LbcUOsvw5UrkZk';
   const TG_CHAT_ID = '901238130';
   const REGION = 'Запад 2';
-  const VAC_OPTS = ["Продавец-консультант","Кассир","Продавец-консультант ювелирных изделий","Администратор магазина","Директор магазина"];
+  const VAC_OPTS = ["Продавец-консультант", "Кассир", "Продавец-консультант ювелирных изделий", "Администратор магазина", "Директор магазина"];
   const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
   document.getElementById('date').value = tomorrow.toISOString().split('T')[0];
 
@@ -150,9 +150,9 @@
     btn.disabled = true; btn.textContent = 'Отправляю...';
     const zayavka = { __kari_zayavka: true, id: Date.now().toString(), region: REGION, store, date, comment, items, status: 'open', createdAt: new Date().toISOString() };
     try { await fetch('https://api.telegram.org/bot'+TG_TOKEN+'/sendMessage', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ chat_id: TG_CHAT_ID, text: JSON.stringify(zayavka) }) }); } catch(e) {}
-    const itemsText = items.map(it => '• '+it.vacancy+' — '+it.count+' чел.').join('\n');
+    const itemsText = items.map(it => '• '+it.vacancy+' — '+it.count+' чел.').join('\\n');
     const dateStr = new Date(date).toLocaleDateString('ru-RU',{day:'numeric',month:'long'});
-    const notifText = '📝 Новая заявка!\n\n🏬 '+store+'\n📍 Регион: '+REGION+'\n📅 Нужен к: '+dateStr+'\n\n'+itemsText+(comment?'\n\n💬 '+comment:'');
+    const notifText = '📝 Новая заявка!\\n\\n🏬 '+store+'\\n📍 Регион: '+REGION+'\\n📅 Нужен к: '+dateStr+'\\n\\n'+itemsText+(comment?'\\n\\n💬 '+comment:'');
     try { await fetch('https://api.telegram.org/bot'+TG_TOKEN+'/sendMessage', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ chat_id: TG_CHAT_ID, text: notifText }) }); } catch(e) {}
     result.className = 'result-box success'; result.style.display = 'block';
     result.innerHTML = '✅ Заявка отправлена!<br><span style="font-size:12px;opacity:0.8">HR-отдел получил уведомление и возьмёт в работу.</span>';
@@ -167,12 +167,12 @@
     if (!store) { alert('Выберите магазин'); return; }
     if (!vacancy) { alert('Выберите должность для закрытия'); return; }
     btn.disabled = true; btn.textContent = 'Отправляю...';
-    const text = '🔒 Вакансия закрыта!\n\n🏬 '+store+'\n📍 Регион: '+REGION+'\n💼 Должность: '+vacancy;
+    const text = '🔒 Вакансия закрыта!\\n\\n🏬 '+store+'\\n📍 Регион: '+REGION+'\\n💼 Должность: '+vacancy;
     try { await fetch('https://api.telegram.org/bot'+TG_TOKEN+'/sendMessage', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ chat_id: TG_CHAT_ID, text }) }); } catch(e) {}
     result.className = 'result-box closed'; result.style.display = 'block';
     result.innerHTML = '🔒 Вакансия закрыта. HR-отдел уведомлён.<br><span style="font-size:11px;opacity:0.8">'+store+' · '+vacancy+'</span>';
     btn.textContent = '✓ HR уведомлён';
   }
-</script>
+<\/script>
 </body>
-</html>
+</html>`;
