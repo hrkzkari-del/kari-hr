@@ -53,13 +53,13 @@
     <div class="header-text">
       <h1>Заявка на подбор сотрудника</h1>
       <span class="region-badge">📍 Регион: Юг</span>
-      ${director ? `<div class="director-name">👤 Юлдашев Азизбек Хусанович</div>` : ''}
+      <div class="director-name">👤 Юлдашев Азизбек Хусанович</div>
     </div>
   </div>
 
   <div class="field">
     <label>Магазин</label>
-    <select id="store"><option value="ТРЦ Hyper House">45021 · ТРЦ Hyper House</option>
+    <select id="store"><option value="ТРЦ Hyper House">40009 · ТРЦ Hyper House</option>
 <option value="ТЦ Баян-Сұлу">40014 · ТЦ Баян-Сұлу</option>
 <option value="ТД Колос">40100 · ТД Колос</option>
 <option value="ТРК Бекжан">40113 · ТРК Бекжан</option>
@@ -103,7 +103,7 @@
   <div class="close-section-label">Если вакансия уже закрыта — уведомите HR</div>
   <div class="field">
     <label>Магазин для закрытия</label>
-    <select id="closeStore"><option value="">— выберите магазин —</option><option value="ТРЦ Hyper House">45021 · ТРЦ Hyper House</option>
+    <select id="closeStore"><option value="">— выберите магазин —</option><option value="ТРЦ Hyper House">40009 · ТРЦ Hyper House</option>
 <option value="ТЦ Баян-Сұлу">40014 · ТЦ Баян-Сұлу</option>
 <option value="ТД Колос">40100 · ТД Колос</option>
 <option value="ТРК Бекжан">40113 · ТРК Бекжан</option>
@@ -129,7 +129,7 @@
   <button class="close-btn" id="closeBtn" onclick="closeVacancy()">🔒 Закрыть вакансию</button>
 
   <div class="result-box" id="result"></div>
-  <div class="footer">Kari HR · Форма для директоров · Регион Юг${director ? ' · ' + director : ''}</div>
+  <div class="footer">Kari HR · Форма для директоров · Регион Юг · Юлдашев Азизбек Хусанович</div>
 </div>
 <script>
   const TG_TOKEN = '8630255396:AAGZPp6e32PurKslNirR4LbcUOsvw5UrkZk';

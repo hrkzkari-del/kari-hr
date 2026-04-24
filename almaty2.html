@@ -53,13 +53,13 @@
     <div class="header-text">
       <h1>Заявка на подбор сотрудника</h1>
       <span class="region-badge">📍 Регион: Алматы 2</span>
-      ${director ? `<div class="director-name">👤 Алдаш Маржан Әбілсейітқызы</div>` : ''}
+      <div class="director-name">👤 Алдаш Маржан Әбілсейітқызы</div>
     </div>
   </div>
 
   <div class="field">
     <label>Магазин</label>
-    <select id="store"><option value="ТРЦ Asia Park">40167 · ТРЦ Asia Park</option>
+    <select id="store"><option value="ТРЦ Asia Park">40002 · ТРЦ Asia Park</option>
 <option value="на Арбат">40073 · на Арбат</option>
 <option value="ТРЦ MAXIMA">40089 · ТРЦ MAXIMA</option>
 <option value="ТРЦ Atakent Mall">40091 · ТРЦ Atakent Mall</option>
@@ -100,7 +100,7 @@
   <div class="close-section-label">Если вакансия уже закрыта — уведомите HR</div>
   <div class="field">
     <label>Магазин для закрытия</label>
-    <select id="closeStore"><option value="">— выберите магазин —</option><option value="ТРЦ Asia Park">40167 · ТРЦ Asia Park</option>
+    <select id="closeStore"><option value="">— выберите магазин —</option><option value="ТРЦ Asia Park">40002 · ТРЦ Asia Park</option>
 <option value="на Арбат">40073 · на Арбат</option>
 <option value="ТРЦ MAXIMA">40089 · ТРЦ MAXIMA</option>
 <option value="ТРЦ Atakent Mall">40091 · ТРЦ Atakent Mall</option>
@@ -123,7 +123,7 @@
   <button class="close-btn" id="closeBtn" onclick="closeVacancy()">🔒 Закрыть вакансию</button>
 
   <div class="result-box" id="result"></div>
-  <div class="footer">Kari HR · Форма для директоров · Регион Алматы 2${director ? ' · ' + director : ''}</div>
+  <div class="footer">Kari HR · Форма для директоров · Регион Алматы 2 · Алдаш Маржан Әбілсейітқызы</div>
 </div>
 <script>
   const TG_TOKEN = '8630255396:AAGZPp6e32PurKslNirR4LbcUOsvw5UrkZk';
